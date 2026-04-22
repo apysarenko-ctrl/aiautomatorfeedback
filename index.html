@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Відгуки студентів – AI Automator | GoIT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #EDECE8;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            padding: 80px 24px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 32px;
+        }
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 900;
+            line-height: 1.1;
+            color: #000;
+            margin-bottom: 20px;
+        }
+        .hero h1 .hl-blue { color: #7B8FD4; }
+        .hero h1 .hl-pink { color: #E89A9A; }
+        .hero p {
+            font-size: 17px;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ── Stats ── */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            padding: 40px 24px 20px;
+            flex-wrap: wrap;
+        }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 42px; font-weight: 900; color: #000; line-height: 1; }
+        .stat-label { font-size: 13px; color: #777; font-weight: 500; margin-top: 6px; }
+
+        /* ── Section Header ── */
+        .section-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px 24px;
+        }
+        .section-header .line {
+            width: 60px;
+            height: 4px;
+            border-radius: 2px;
+            margin-bottom: 14px;
+        }
+        .section-header h2 {
+            font-size: clamp(26px, 4vw, 40px);
+            font-weight: 900;
+            color: #000;
+            line-height: 1.15;
+            margin-bottom: 8px;
+        }
+        .section-header p {
+            font-size: 15px;
+            color: #888;
+            max-width: 550px;
+        }
+
+        /* ── Reviews Grid ── */
+        .reviews-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px 40px;
+        }
+        .reviews-grid {
+            columns: 3;
+            column-gap: 20px;
+        }
+        @media (max-width: 900px) { .reviews-grid { columns: 2; } }
+        @media (max-width: 560px) { .reviews-grid { columns: 1; } }
+
+        /* ── Screenshot Card ── */
+        .img-card {
+            break-inside: avoid;
+            background: #fff;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            border: 1px solid rgba(0,0,0,0.06);
+            cursor: pointer;
+        }
+        .img-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+        }
+        .img-card .card-top {
+            height: 5px;
+        }
+        .img-card img {
+            width: 100%;
+            display: block;
+            padding: 12px;
+        }
+
+        /* Top accent colors */
+        .top-blue .card-top { background: #A8B8F0; }
+        .top-pink .card-top { background: #F5B8B8; }
+        .top-green .card-top { background: #A8E6CF; }
+        .top-yellow .card-top { background: #FFE0A0; }
+        .top-purple .card-top { background: #C8B8F0; }
+
+        /* ── Wide card ── */
+        .wide-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px 20px;
+        }
+        .wide-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+        }
+        .wide-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+        }
+        .wide-card .card-top {
+            height: 5px;
+        }
+        .wide-card img {
+            width: 100%;
+            max-width: 800px;
+            display: block;
+            margin: 0 auto;
+            padding: 20px 32px;
+        }
+
+        /* ── CTA ── */
+        .cta {
+            text-align: center;
+            padding: 60px 24px 100px;
+        }
+        .cta h2 {
+            font-size: clamp(24px, 4vw, 40px);
+            font-weight: 800;
+            color: #000;
+            margin-bottom: 12px;
+        }
+        .cta p { font-size: 16px; color: #666; margin-bottom: 32px; }
+        .btn {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .btn:hover { background: #222; transform: translateY(-2px); }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 32px 24px;
+            font-size: 13px;
+            color: #999;
+            border-top: 1px solid #ddd;
+        }
+
+        /* ── Lightbox ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            cursor: default;
+        }
+        .lightbox-close {
+            position: fixed;
+            top: 20px;
+            right: 28px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            transition: background 0.2s;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-badge">AI Automator · GoIT</div>
+    <h1>Що кажуть наші <span class="hl-blue">студенти</span> про <span class="hl-pink">курс</span></h1>
+    <p>Реальні відгуки від людей, які пройшли курс AI Automator та навчились автоматизувати бізнес-процеси</p>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+    <div class="stat-item">
+        <div class="stat-number">30+</div>
+        <div class="stat-label">відгуків</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">96%</div>
+        <div class="stat-label">позитивних вражень</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">практики</div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: Prompt Engineering & AI Agents  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-header">
+    <div class="line" style="background:#A8B8F0;"></div>
+    <h2>Prompt Engineering & AI Agents</h2>
+    <p>Відгуки з опитування після проходження модулів</p>
+</div>
+
+<section class="reviews-section">
+    <div class="reviews-grid">
+
+        <div class="img-card top-blue" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.42.54@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-green" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.43.39@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-pink" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.43.50@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-yellow" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.43.57@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-purple" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.44.04@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-blue" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.44.13@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-green" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.44.27@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-pink" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.44.33@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 2: AI Automator. Marketing     -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section-header">
+    <div class="line" style="background:#F5B8B8;"></div>
+    <h2>AI Automator. Marketing</h2>
+    <p>Відгуки після проходження маркетингового блоку</p>
+</div>
+
+<section class="reviews-section">
+    <div class="reviews-grid">
+
+        <div class="img-card top-pink" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.47.36@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-green" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.47.44@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-blue" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.47.51@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-yellow" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.47.57@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-purple" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.48.05@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-blue" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.48.11@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-green" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.48.26@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-pink" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.48.43@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-yellow" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.49.44@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-purple" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.49.55@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+        <div class="img-card top-blue" onclick="openLightbox(this)">
+            <div class="card-top"></div>
+            <img src="images/CleanShot 2026-04-22 at 11.50.04@2x.png" alt="Відгук студента" loading="lazy">
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 3: Загальні враження про програму      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-header">
+    <div class="line" style="background:#A8E6CF;"></div>
+    <h2>Загальні враження про програму</h2>
+    <p>Що студенти кажуть про курс AI Automator загалом</p>
+</div>
+
+<div class="wide-wrap">
+    <div class="wide-card" onclick="openLightbox(this)">
+        <div class="card-top" style="background:#A8E6CF;"></div>
+        <img src="images/CleanShot 2026-04-22 at 11.51.34@2x.png" alt="Відгук Дмитра Павленка" loading="lazy">
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 4: Що говорять студенти в особистих чатах      -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-header">
+    <div class="line" style="background:#C8B8F0;"></div>
+    <h2>Що говорять студенти в особистих чатах</h2>
+    <p>Щирі, непідготовлені враження прямо з чатів</p>
+</div>
+
+<div class="wide-wrap">
+    <div class="wide-card" onclick="openLightbox(this)">
+        <div class="card-top" style="background:#C8B8F0;"></div>
+        <img src="images/CleanShot 2026-04-22 at 11.51.45@2x.png" alt="Відгук з особистого чату" loading="lazy">
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 5: Сейлз частина                       -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-header">
+    <div class="line" style="background:#FFE0A0;"></div>
+    <h2>Сейлз частина</h2>
+    <p>Найважча, але основна та найголовніша частина курсу</p>
+</div>
+
+<div class="wide-wrap">
+    <div class="wide-card" onclick="openLightbox(this)">
+        <div class="card-top" style="background:#FFE0A0;"></div>
+        <img src="images/CleanShot 2026-04-22 at 11.51.54@2x.png" alt="Відгук про Sales Automation" loading="lazy">
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 GoIT · AI Automator. Усі права захищені.
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+    <img id="lightbox-img" src="" alt="Збільшений відгук">
+</div>
+
+<script>
+    function openLightbox(card) {
+        const img = card.querySelector('img');
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        lbImg.src = img.src;
+        lb.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+        if (e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+</script>
+
+</body>
+</html>
